@@ -26,7 +26,7 @@ To install pyopenai, you can simply run
 nimble install pyopenai
 ```
 - Uninstall with `nimble uninstall pyopenai`.
-- [Nimble repo page](https://nimble.directory/pkg/)
+- [Nimble repo page](https://nimble.directory/pkg/pyopenai)
 
 # Requisites
 
