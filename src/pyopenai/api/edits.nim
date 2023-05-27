@@ -1,5 +1,4 @@
 import httpclient, json
-import std/jsonutils
 
 import ../consts
 import ../types
@@ -34,7 +33,7 @@ proc createEdit*(self: OpenAiClient,
         body.add("top_p", %topP)
 
     let resp = buildHttpClient(self, "application/json").post(
-            OpenAiBaseUrl&"/edits", body = $body.toJson())
+            OpenAiBaseUrl&"/edits", body = $body)
     case resp.status
         of $Http200:
             return resp.body.parseJson()

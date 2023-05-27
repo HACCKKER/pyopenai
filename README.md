@@ -19,6 +19,7 @@ An attempt to reimplement python OpenAI API bindings in nim
 - [Images](https://platform.openai.com/docs/api-reference/images)
 - [Embeddings](https://platform.openai.com/docs/api-reference/embeddings)
 - [Moderations](https://platform.openai.com/docs/api-reference/moderations)
+- [Audio](https://platform.openai.com/docs/api-reference/audio/create)
 
 # Installation
 To install pyopenai, you can simply run

@@ -20,6 +20,7 @@ proc getModelList*(self: OpenAiClient): JsonNode =
         else:
             raise newException(Defect, "Unknown error")
 
+
 proc getModel*(self: OpenAiClient, model: string): JsonNode =
     let resp = buildHttpClient(self, "application/json").get(
             OpenAiBaseUrl&"/models/"&model)

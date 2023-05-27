@@ -1,5 +1,4 @@
 import httpclient, json
-import std/jsonutils
 
 import ../consts
 import ../types
@@ -32,7 +31,7 @@ proc createImage*(self: OpenAiClient,
         body.add("user", %user)
 
     let resp = buildHttpClient(self, "application/json").post(
-            OpenAiBaseUrl&"/images/generations", body = $body.toJson())
+            OpenAiBaseUrl&"/images/generations", body = $body)
     case resp.status
         of $Http200:
             return resp.body.parseJson()
