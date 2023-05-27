@@ -6,34 +6,20 @@ import ../types
 import ../utils
 
 
-proc createEdit*(self: OpenAiClient,
-    model: string,
-    instruction: string,
-    input = "",
-    n: uint = 1,
-    temperature = 1.0,
-    topP = 1.0
-    ): Edits =
-    ## creates `Edits`
-
+proc createModeration*(self: OpenAiClient,
+    input: string|seq[string],
+    model = ""
+    ): Moderation =
+    ## creates `Moderation`
+    
     var body = %*{
-        "model": model,
-        "instruction": instruction
+        "input": input
     }
 
-    if input != "":
-        body.add("input", %input)
+    if model != "":
+        body.add("model", %model)
     
-    if n != 1:
-        body.add("n", %n)
-
-    if temperature != 1.0:
-        body.add("temperature", %temperature)
-    
-    if topP != 1.0:
-        body.add("top_p", %topP)
-
-    let resp = buildHttpClient(self, "application/json").post(OpenAiBaseUrl&"/edits",
+    let resp = buildHttpClient(self, "application/json").post(OpenAiBaseUrl&"/moderations",
             body = $body.toJson())
     case resp.status
         of $Http200:

@@ -8,10 +8,12 @@ type
         userAgent*: string
 
 type
-    Completion* = JsonNode
-    ChatCompletion* = JsonNode
-    Edit* = JsonNode
-    Image* = JsonNode
+    Completions* = JsonNode
+    ChatCompletions* = JsonNode
+    Edits* = JsonNode
+    Images* = JsonNode
+    Embeddings* = JsonNode
+    Moderation* = JsonNode
 
 type
     ModelNotFound* = ref object of CatchableError

@@ -8,7 +8,7 @@ import ../utils
 
 proc createCompletion*(self: OpenAiClient,
     model: string,
-    prompt = "",
+    prompt: string|seq[string] = "",
     suffix = "",
     maxTokens: uint = 0,
     temperature = 1.0,
@@ -22,8 +22,8 @@ proc createCompletion*(self: OpenAiClient,
     bestOf: uint = 1,
     logitBias: JsonNode = %false,
     user = ""
-    ): Completion =
-    ## creates a `Completion`
+    ): Completions =
+    ## creates `Completions`
 
     var body = %*{
         "model": model
@@ -98,8 +98,8 @@ proc createChatCompletion*(self: OpenAiClient,
     frequencyPenalty = 0.0,
     logitBias: JsonNode = %false,
     user = ""
-    ): ChatCompletion =
-    ## creates a `ChatCompletion`
+    ): ChatCompletions =
+    ## creates `ChatCompletions`
 
     var body = %*{
         "model": model,

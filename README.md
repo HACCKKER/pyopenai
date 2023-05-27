@@ -11,6 +11,15 @@ An attempt to reimplement python OpenAI API bindings in nim
 - async not implemented yet
 - if you need features that are not implemented yet, use [this](https://nimble.directory/pkg/openaiclient)
 
+#### What is already implemented:
+- [Models](https://platform.openai.com/docs/api-reference/models)
+- [Completions](https://platform.openai.com/docs/api-reference/completions)
+- [ChatCompletions](https://platform.openai.com/docs/api-reference/chat)
+- [Edits](https://platform.openai.com/docs/api-reference/edits)
+- [Images (1/3)](https://platform.openai.com/docs/api-reference/images)
+- [Embeddings](https://platform.openai.com/docs/api-reference/embeddings)
+- [Moderations](https://platform.openai.com/docs/api-reference/moderations)
+
 # Installation
 To install pyopenai, you can simply run
 ```

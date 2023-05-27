@@ -13,3 +13,9 @@ export edits
 
 import pyopenai/api/images
 export images
+
+import pyopenai/api/embeddings
+export embeddings
+
+import pyopenai/api/moderations
+export moderations

@@ -6,32 +6,22 @@ import ../types
 import ../utils
 
 
-proc createImage*(self: OpenAiClient,
-    prompt: string,
-    n: uint = 1,
-    size = "1024x1024",
-    responseFormat = "url",
+proc createEmbedding*(self: OpenAiClient,
+    model: string,
+    input: string|seq[string],
     user = ""
-    ): Images =
-    ## creates `Images`
-
+    ): Embeddings =
+    ## creates `Embeddings`
+    
     var body = %*{
-        "prompt": prompt
+        "model": model,
+        "input": input
     }
-
-    if n != 1:
-        body.add("n", %n)
-
-    if size != "1024x1024":
-        body.add("size", %size)
-
-    if responseFormat != "url":
-        body.add("response_format", %responseFormat)
 
     if user != "":
         body.add("user", %user)
-
-    let resp = buildHttpClient(self, "application/json").post(OpenAiBaseUrl&"/images/generations",
+    
+    let resp = buildHttpClient(self, "application/json").post(OpenAiBaseUrl&"/embeddings",
             body = $body.toJson())
     case resp.status
         of $Http200:
