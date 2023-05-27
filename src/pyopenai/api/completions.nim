@@ -8,7 +8,7 @@ import ../utils
 
 proc createCompletion*(self: OpenAiClient,
     model: string,
-    prompt: string|seq[string] = "",
+    prompt: string = "",
     suffix = "",
     maxTokens: uint = 0,
     temperature = 1.0,
@@ -16,7 +16,7 @@ proc createCompletion*(self: OpenAiClient,
     n: uint = 1,
     logprobs: uint = 0,
     echo = false,
-    stop: string|seq[string] = "",
+    stop: seq[string] = @[""],
     presencePenalty = 0.0,
     frequencyPenalty = 0.0,
     bestOf: uint = 1,
@@ -53,7 +53,7 @@ proc createCompletion*(self: OpenAiClient,
     if echo != false:
         body.add("echo", %echo)
 
-    if stop != "":
+    if stop != @[""]:
         body.add("stop", %stop)
 
     if presencePenalty != 0.0:
@@ -92,7 +92,7 @@ proc createChatCompletion*(self: OpenAiClient,
     temperature = 1.0,
     topP = 1.0,
     n: uint = 1,
-    stop: string|seq[string] = "",
+    stop: string = "",
     maxTokens: uint = 0,
     presencePenalty = 0.0,
     frequencyPenalty = 0.0,
