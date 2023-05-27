@@ -8,6 +8,8 @@ An attempt to reimplement python OpenAI API bindings in nim
 
 ## Project Status:
 - in developement (not a full OpenAI API spec implementation yet)
+- async not implemented yet
+- if you need features that are not implemented yet, use [this](https://nimble.directory/pkg/openaiclient)
 
 # Installation
 To install pyopenai, you can simply run
