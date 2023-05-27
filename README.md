@@ -25,18 +25,17 @@ nimble install pyopenai
 
 # Example
 ```nim
-import pyopenai
-import json
+import pyopenai, json, os
 
 var openai = OpenAiClient(
-    apiKey: "OPENAI_API_KEY"
+    apiKey: getEnv("OPENAI_API_KEY")
 )
 
 let response = openai.createCompletion(
     model = "text-davinci-003",
     prompt = "imo nim is the best programming language",
-    temperature = 1,
-    maxTokens = 2048
+    temperature = 0.6,
+    maxTokens = 500
 )
 
 echo(response["choices"][0]["text"].str)
@@ -52,8 +51,8 @@ chatMessages.add(
 let resp = openai.createChatCompletion(
     model = "gpt-3.5-turbo",
     messages = chatMessages,
-    temperature = 1,
-    maxTokens = 2048
+    temperature = 0.5,
+    maxTokens = 1000
 )
 
 chatMessages.add(
