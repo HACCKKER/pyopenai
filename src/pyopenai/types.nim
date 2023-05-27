@@ -1,3 +1,6 @@
+import json
+
+
 type
     OpenAiClient* = object
         apiKey*: string
@@ -5,6 +8,11 @@ type
         userAgent*: string
 
 type
-    modelNotFound* = ref object of CatchableError
-    invalidApiKey* = ref object of CatchableError
-    invalidParameters* = ref object of CatchableError
+    Completion* = JsonNode
+    ChatCompletion* = JsonNode
+    Image* = JsonNode
+
+type
+    ModelNotFound* = ref object of CatchableError
+    InvalidApiKey* = ref object of CatchableError
+    InvalidParameters* = ref object of CatchableError

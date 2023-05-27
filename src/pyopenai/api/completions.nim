@@ -1,10 +1,12 @@
 import httpclient, json
 import std/jsonutils
 
+import ../consts
 import ../types
 import ../utils
 
-proc createCompletion*(self: var OpenAiClient,
+
+proc createCompletion*(self: OpenAiClient,
     model: string,
     prompt = "",
     suffix = "",
@@ -20,7 +22,7 @@ proc createCompletion*(self: var OpenAiClient,
     bestOf: uint = 1,
     logitBias: JsonNode = %false,
     user = ""
-    ): JsonNode =
+    ): Completion =
     ## creates a `Completion`
 
     var body = %*{
@@ -69,22 +71,22 @@ proc createCompletion*(self: var OpenAiClient,
     if user != "":
         body.add("user", %user)
 
-    let resp = getOpenAiClient(self).post("https://api.openai.com/v1/completions",
+    let resp = buildHttpClient(self, "application/json").post(OpenAiBaseUrl&"/completions",
             body = $body.toJson())
     case resp.status
         of $Http200:
             return resp.body.parseJson()
         of $Http401:
-            raise invalidApiKey(msg: "Provided OpenAI API key is invalid")
+            raise InvalidApiKey(msg: "Provided OpenAI API key is invalid")
         of $Http404:
-            raise modelNotFound(msg: "The model that you selected does not exist")
+            raise ModelNotFound(msg: "The model that you selected does not exist")
         of $Http400:
-            raise invalidParameters(msg: "Some of the parameters that you provided are invalid")
+            raise InvalidParameters(msg: "Some of the parameters that you provided are invalid")
         else:
             raise newException(OSError, "Unknown error")
 
 
-proc createChatCompletion*(self: var OpenAiClient,
+proc createChatCompletion*(self: OpenAiClient,
     model: string,
     messages: seq[JsonNode],
     temperature = 1.0,
@@ -96,7 +98,7 @@ proc createChatCompletion*(self: var OpenAiClient,
     frequencyPenalty = 0.0,
     logitBias: JsonNode = %false,
     user = ""
-    ): JsonNode =
+    ): ChatCompletion =
     ## creates a `ChatCompletion`
 
     var body = %*{
@@ -131,16 +133,16 @@ proc createChatCompletion*(self: var OpenAiClient,
     if user != "":
         body.add("user", %user)
 
-    let resp = getOpenAiClient(self).post("https://api.openai.com/v1/chat/completions",
+    let resp = buildHttpClient(self, "application/json").post(OpenAiBaseUrl&"/chat/completions",
             body = $body.toJson())
     case resp.status
         of $Http200:
             return resp.body.parseJson()
         of $Http401:
-            raise invalidApiKey(msg: "Provided OpenAI API key is invalid")
+            raise InvalidApiKey(msg: "Provided OpenAI API key is invalid")
         of $Http404:
-            raise modelNotFound(msg: "The model that you selected does not exist")
+            raise ModelNotFound(msg: "The model that you selected does not exist")
         of $Http400:
-            raise invalidParameters(msg: "Some of the parameters that you provided are invalid")
+            raise InvalidParameters(msg: "Some of the parameters that you provided are invalid")
         else:
             raise newException(OSError, "Unknown error")

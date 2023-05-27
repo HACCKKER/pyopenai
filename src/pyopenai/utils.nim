@@ -1,14 +1,13 @@
 import httpclient
-import strformat
 
 import types
 
-proc getOpenAiClient*(client: OpenAiClient): HttpClient =
+proc buildHttpClient*(client: OpenAiClient, contentType: string): HttpClient =
 
     var openAiHeaders = newHttpHeaders(
         [
-            ("Content-Type", "application/json"),
-            ("Authorization", fmt"Bearer {client.apiKey}")
+            ("Content-Type", contentType),
+            ("Authorization", "Bearer "&client.apiKey)
         ]
     )
 
