@@ -16,7 +16,7 @@ An attempt to reimplement python OpenAI API bindings in nim
 - [Completions](https://platform.openai.com/docs/api-reference/completions)
 - [ChatCompletions](https://platform.openai.com/docs/api-reference/chat)
 - [Edits](https://platform.openai.com/docs/api-reference/edits)
-- [Images (1/3)](https://platform.openai.com/docs/api-reference/images)
+- [Images](https://platform.openai.com/docs/api-reference/images)
 - [Embeddings](https://platform.openai.com/docs/api-reference/embeddings)
 - [Moderations](https://platform.openai.com/docs/api-reference/moderations)
 

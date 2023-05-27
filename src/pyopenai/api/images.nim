@@ -44,3 +44,90 @@ proc createImage*(self: OpenAiClient,
             raise InvalidParameters(msg: "Some of the parameters that you provided are invalid")
         else:
             raise newException(Defect, "Unknown error")
+
+
+proc createImageEdit*(self: OpenAiClient,
+    image: string,
+    prompt: string,
+    mask = "",
+    n: uint = 1,
+    size = "1024x1024",
+    responseFormat = "url",
+    user = ""
+    ): Images =
+    # creates `Image`s based on another image and an edit prompt
+
+    var data = MultipartData()
+
+    data.add({"prompt": prompt})
+
+    data.addFiles({"image": image})
+
+    if mask != "":
+        data.addFiles({"mask": mask})
+
+    if n != 1:
+        data.add({"n": $n})
+
+    if size != "1024x1024":
+        data.add({"size": size})
+
+    if responseFormat != "url":
+        data.add({"response_format": responseFormat})
+
+    if user != "":
+        data.add({"user": user})
+
+    let resp = buildHttpClient(self, "multipart/form-data").post(
+            OpenAiBaseUrl&"/images/edits", multipart = data)
+    case resp.status
+        of $Http200:
+            return resp.body.parseJson()
+        of $Http401:
+            raise InvalidApiKey(msg: "Provided OpenAI API key is invalid")
+        of $Http404:
+            raise ModelNotFound(msg: "The model that you selected does not exist")
+        of $Http400:
+            raise InvalidParameters(msg: "Some of the parameters that you provided are invalid")
+        else:
+            raise newException(Defect, "Unknown error")
+
+
+proc createImageVariation*(self: OpenAiClient,
+    image: string,
+    n: uint = 1,
+    size = "1024x1024",
+    responseFormat = "url",
+    user = ""
+    ): Images =
+    # creates `Image`s based on another image and an edit prompt
+
+    var data = MultipartData()
+
+    data.addFiles({"image": image})
+
+    if n != 1:
+        data.add({"n": $n})
+
+    if size != "1024x1024":
+        data.add({"size": size})
+
+    if responseFormat != "url":
+        data.add({"response_format": responseFormat})
+
+    if user != "":
+        data.add({"user": user})
+
+    let resp = buildHttpClient(self, "multipart/form-data").post(
+            OpenAiBaseUrl&"/images/variations", multipart = data)
+    case resp.status
+        of $Http200:
+            return resp.body.parseJson()
+        of $Http401:
+            raise InvalidApiKey(msg: "Provided OpenAI API key is invalid")
+        of $Http404:
+            raise ModelNotFound(msg: "The model that you selected does not exist")
+        of $Http400:
+            raise InvalidParameters(msg: "Some of the parameters that you provided are invalid")
+        else:
+            raise newException(Defect, "Unknown error")
