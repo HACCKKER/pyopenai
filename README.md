@@ -1,6 +1,6 @@
 # PyOpenAI
 
-[![Build status](https://github.com/HACCKKER/pyopenai/workflows/Build/badge.svg)](https://github.com/HACCKKER/pyopenai/actions)
+<!-- [![Build status](https://github.com/HACCKKER/pyopenai/workflows/Build/badge.svg)](https://github.com/HACCKKER/pyopenai/actions) -->
 ![](https://img.shields.io/github/languages/top/HACCKKER/pyopenai?style=flat)
 ![](https://img.shields.io/github/languages/code-size/HACCKKER/pyopenai?style=flat)
 
