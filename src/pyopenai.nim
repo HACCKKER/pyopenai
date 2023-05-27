@@ -1,7 +1,12 @@
 import pyopenai/types
-import pyopenai/api/completions
-import pyopenai/api/images
-
 export types
+
+
+import pyopenai/api/completions
 export completions
+
+import pyopenai/api/images
 export images
+
+import pyopenai/api/models
+export models
