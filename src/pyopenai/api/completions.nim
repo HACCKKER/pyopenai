@@ -31,48 +31,48 @@ proc createCompletion*(self: OpenAiClient,
 
     if prompt != "":
         body.add("prompt", %prompt)
-    
+
     if suffix != "":
         body.add("suffix", %suffix)
 
     if maxTokens != 0:
         body.add("max_tokens", %maxTokens)
-    
+
     if temperature != 1.0:
         body.add("temperature", %temperature)
-    
+
     if topP != 1.0:
         body.add("top_p", %topP)
-    
+
     if n != 1:
         body.add("n", %n)
-    
+
     if logprobs != 0:
         body.add("logprobs", %logprobs)
-    
+
     if echo != false:
         body.add("echo", %echo)
-    
+
     if stop != "":
         body.add("stop", %stop)
-    
+
     if presencePenalty != 0.0:
         body.add("presence_penalty", %presencePenalty)
-    
+
     if frequencyPenalty != 0.0:
         body.add("frequency_penalty", %frequencyPenalty)
-    
+
     if bestOf != 1:
         body.add("best_of", %bestOf)
-    
+
     if logitBias != %false:
         body.add("logit_bias", %logitBias)
-    
+
     if user != "":
         body.add("user", %user)
 
-    let resp = buildHttpClient(self, "application/json").post(OpenAiBaseUrl&"/completions",
-            body = $body.toJson())
+    let resp = buildHttpClient(self, "application/json").post(
+            OpenAiBaseUrl&"/completions", body = $body.toJson())
     case resp.status
         of $Http200:
             return resp.body.parseJson()
@@ -108,33 +108,33 @@ proc createChatCompletion*(self: OpenAiClient,
 
     if temperature != 1.0:
         body.add("temperature", %temperature)
-    
+
     if topP != 1.0:
         body.add("top_p", %topP)
-    
+
     if n != 1:
         body.add("n", %n)
-    
+
     if stop != "":
         body.add("stop", %stop)
 
     if maxTokens != 0:
         body.add("max_tokens", %maxTokens)
-    
+
     if presencePenalty != 0.0:
         body.add("presence_penalty", %presencePenalty)
-    
+
     if frequencyPenalty != 0.0:
         body.add("frequency_penalty", %frequencyPenalty)
-    
+
     if logitBias != %false:
         body.add("logit_bias", %logitBias)
-    
+
     if user != "":
         body.add("user", %user)
 
-    let resp = buildHttpClient(self, "application/json").post(OpenAiBaseUrl&"/chat/completions",
-            body = $body.toJson())
+    let resp = buildHttpClient(self, "application/json").post(
+            OpenAiBaseUrl&"/chat/completions", body = $body.toJson())
     case resp.status
         of $Http200:
             return resp.body.parseJson()

@@ -12,7 +12,7 @@ proc createEmbedding*(self: OpenAiClient,
     user = ""
     ): Embeddings =
     ## creates `Embeddings`
-    
+
     var body = %*{
         "model": model,
         "input": input
@@ -20,9 +20,9 @@ proc createEmbedding*(self: OpenAiClient,
 
     if user != "":
         body.add("user", %user)
-    
-    let resp = buildHttpClient(self, "application/json").post(OpenAiBaseUrl&"/embeddings",
-            body = $body.toJson())
+
+    let resp = buildHttpClient(self, "application/json").post(
+            OpenAiBaseUrl&"/embeddings", body = $body.toJson())
     case resp.status
         of $Http200:
             return resp.body.parseJson()

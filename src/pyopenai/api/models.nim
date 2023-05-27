@@ -6,7 +6,8 @@ import ../utils
 
 
 proc getModelList*(self: OpenAiClient): JsonNode =
-    let resp = buildHttpClient(self, "application/json").get(OpenAiBaseUrl&"/models")
+    let resp = buildHttpClient(self, "application/json").get(
+            OpenAiBaseUrl&"/models")
     case resp.status
         of $Http200:
             return resp.body.parseJson()
@@ -20,7 +21,8 @@ proc getModelList*(self: OpenAiClient): JsonNode =
             raise newException(Defect, "Unknown error")
 
 proc getModel*(self: OpenAiClient, model: string): JsonNode =
-    let resp = buildHttpClient(self, "application/json").get(OpenAiBaseUrl&"/models/"&model)
+    let resp = buildHttpClient(self, "application/json").get(
+            OpenAiBaseUrl&"/models/"&model)
     case resp.status
         of $Http200:
             return resp.body.parseJson()

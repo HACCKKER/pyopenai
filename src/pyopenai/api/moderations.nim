@@ -11,16 +11,16 @@ proc createModeration*(self: OpenAiClient,
     model = ""
     ): Moderation =
     ## creates `Moderation`
-    
+
     var body = %*{
         "input": input
     }
 
     if model != "":
         body.add("model", %model)
-    
-    let resp = buildHttpClient(self, "application/json").post(OpenAiBaseUrl&"/moderations",
-            body = $body.toJson())
+
+    let resp = buildHttpClient(self, "application/json").post(
+            OpenAiBaseUrl&"/moderations", body = $body.toJson())
     case resp.status
         of $Http200:
             return resp.body.parseJson()

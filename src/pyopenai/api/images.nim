@@ -31,8 +31,8 @@ proc createImage*(self: OpenAiClient,
     if user != "":
         body.add("user", %user)
 
-    let resp = buildHttpClient(self, "application/json").post(OpenAiBaseUrl&"/images/generations",
-            body = $body.toJson())
+    let resp = buildHttpClient(self, "application/json").post(
+            OpenAiBaseUrl&"/images/generations", body = $body.toJson())
     case resp.status
         of $Http200:
             return resp.body.parseJson()

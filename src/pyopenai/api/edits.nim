@@ -23,18 +23,18 @@ proc createEdit*(self: OpenAiClient,
 
     if input != "":
         body.add("input", %input)
-    
+
     if n != 1:
         body.add("n", %n)
 
     if temperature != 1.0:
         body.add("temperature", %temperature)
-    
+
     if topP != 1.0:
         body.add("top_p", %topP)
 
-    let resp = buildHttpClient(self, "application/json").post(OpenAiBaseUrl&"/edits",
-            body = $body.toJson())
+    let resp = buildHttpClient(self, "application/json").post(
+            OpenAiBaseUrl&"/edits", body = $body.toJson())
     case resp.status
         of $Http200:
             return resp.body.parseJson()
