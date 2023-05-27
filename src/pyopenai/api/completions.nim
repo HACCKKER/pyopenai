@@ -83,7 +83,7 @@ proc createCompletion*(self: OpenAiClient,
         of $Http400:
             raise InvalidParameters(msg: "Some of the parameters that you provided are invalid")
         else:
-            raise newException(OSError, "Unknown error")
+            raise newException(Defect, "Unknown error")
 
 
 proc createChatCompletion*(self: OpenAiClient,
@@ -145,4 +145,4 @@ proc createChatCompletion*(self: OpenAiClient,
         of $Http400:
             raise InvalidParameters(msg: "Some of the parameters that you provided are invalid")
         else:
-            raise newException(OSError, "Unknown error")
+            raise newException(Defect, "Unknown error")

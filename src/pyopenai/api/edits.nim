@@ -5,33 +5,34 @@ import ../consts
 import ../types
 import ../utils
 
-
-proc createImage*(self: OpenAiClient,
-    prompt: string,
+proc createEdit*(self: OpenAiClient,
+    model: string,
+    instruction: string,
+    input = "",
     n: uint = 1,
-    size = "1024x1024",
-    responseFormat = "url",
-    user = ""
-    ): Image =
-    ## creates an `Image`
+    temperature = 1.0,
+    topP = 1.0
+    ): Edit =
+    ## creates an `Edit`
 
     var body = %*{
-        "prompt": prompt
+        "model": model,
+        "instruction": instruction
     }
 
+    if input != "":
+        body.add("input", %input)
+    
     if n != 1:
         body.add("n", %n)
 
-    if size != "1024x1024":
-        body.add("size", %size)
+    if temperature != 1.0:
+        body.add("temperature", %temperature)
+    
+    if topP != 1.0:
+        body.add("top_p", %topP)
 
-    if responseFormat != "url":
-        body.add("response_format", %responseFormat)
-
-    if user != "":
-        body.add("user", %user)
-
-    let resp = buildHttpClient(self, "application/json").post(OpenAiBaseUrl&"/images/generations",
+    let resp = buildHttpClient(self, "application/json").post(OpenAiBaseUrl&"/chat/completions",
             body = $body.toJson())
     case resp.status
         of $Http200:

@@ -10,6 +10,7 @@ type
 type
     Completion* = JsonNode
     ChatCompletion* = JsonNode
+    Edit* = JsonNode
     Image* = JsonNode
 
 type
