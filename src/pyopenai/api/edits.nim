@@ -13,7 +13,7 @@ proc createEdit*(self: OpenAiClient,
     temperature = 1.0,
     topP = 1.0
     ): Edits =
-    ## creates `Edits`
+    ## creates ``Edits``
 
     var body = %*{
         "model": model,
@@ -40,7 +40,7 @@ proc createEdit*(self: OpenAiClient,
         of $Http401:
             raise InvalidApiKey(msg: "Provided OpenAI API key is invalid")
         of $Http404:
-            raise ModelNotFound(msg: "The model that you selected does not exist")
+            raise NotFound(msg: "The model that you specified does not exist")
         of $Http400:
             raise InvalidParameters(msg: "Some of the parameters that you provided are invalid")
         else:

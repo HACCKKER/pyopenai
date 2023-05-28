@@ -17,5 +17,11 @@ export images
 import pyopenai/api/embeddings
 export embeddings
 
+import pyopenai/api/files
+export files
+
+import pyopenai/api/finetunes
+export finetunes
+
 import pyopenai/api/moderations
 export moderations

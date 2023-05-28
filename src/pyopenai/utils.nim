@@ -2,14 +2,16 @@ import httpclient
 
 import types
 
-proc buildHttpClient*(client: OpenAiClient, contentType: string): HttpClient =
+proc buildHttpClient*(client: OpenAiClient, contentType = ""): HttpClient =
 
     var openAiHeaders = newHttpHeaders(
         [
-            ("Content-Type", contentType),
             ("Authorization", "Bearer "&client.apiKey)
         ]
     )
+
+    if contentType != "":
+        openAiHeaders.add("Content-Type", contentType)
 
     if client.organization != "":
         openAiHeaders.add("OpenAI_Organization", client.organization)

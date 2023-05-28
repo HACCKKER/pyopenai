@@ -14,15 +14,15 @@ proc createCompletion*(self: OpenAiClient,
     topP = 1.0,
     n: uint = 1,
     logprobs: uint = 0,
-    echo = false,
-    stop: seq[string] = @[""],
+    promptEcho = false,
+    stop: seq[string] = @[],
     presencePenalty = 0.0,
     frequencyPenalty = 0.0,
     bestOf: uint = 1,
     logitBias: JsonNode = %false,
     user = ""
     ): Completions =
-    ## creates `Completions`
+    ## creates ``Completions``
 
     var body = %*{
         "model": model
@@ -49,10 +49,10 @@ proc createCompletion*(self: OpenAiClient,
     if logprobs != 0:
         body.add("logprobs", %logprobs)
 
-    if echo != false:
-        body.add("echo", %echo)
+    if promptEcho != false:
+        body.add("echo", %promptEcho)
 
-    if stop != @[""]:
+    if len(stop) != 0:
         body.add("stop", %stop)
 
     if presencePenalty != 0.0:
@@ -78,7 +78,7 @@ proc createCompletion*(self: OpenAiClient,
         of $Http401:
             raise InvalidApiKey(msg: "Provided OpenAI API key is invalid")
         of $Http404:
-            raise ModelNotFound(msg: "The model that you selected does not exist")
+            raise NotFound(msg: "The model that you specified does not exist")
         of $Http400:
             raise InvalidParameters(msg: "Some of the parameters that you provided are invalid")
         else:
@@ -98,7 +98,7 @@ proc createChatCompletion*(self: OpenAiClient,
     logitBias: JsonNode = %false,
     user = ""
     ): ChatCompletions =
-    ## creates `ChatCompletions`
+    ## creates ``ChatCompletions``
 
     var body = %*{
         "model": model,
@@ -140,7 +140,7 @@ proc createChatCompletion*(self: OpenAiClient,
         of $Http401:
             raise InvalidApiKey(msg: "Provided OpenAI API key is invalid")
         of $Http404:
-            raise ModelNotFound(msg: "The model that you selected does not exist")
+            raise NotFound(msg: "The model that you specified does not exist")
         of $Http400:
             raise InvalidParameters(msg: "Some of the parameters that you provided are invalid")
         else:

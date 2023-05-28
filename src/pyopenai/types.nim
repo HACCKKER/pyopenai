@@ -13,9 +13,10 @@ type
     Edits* = JsonNode
     Images* = JsonNode
     Embeddings* = JsonNode
+    FineTune* = JsonNode
     Moderation* = JsonNode
 
 type
-    ModelNotFound* = ref object of CatchableError
+    NotFound* = ref object of CatchableError
     InvalidApiKey* = ref object of CatchableError
     InvalidParameters* = ref object of CatchableError
