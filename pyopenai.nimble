@@ -1,7 +1,7 @@
 # Package
 
 version       = "0.1.0"
-author        = "HACKKER"
+author        = "jaredmontoya"
 description   = "An attempt to reimplement python OpenAI API bindings in nim"
 license       = "MIT"
 srcDir        = "src"
